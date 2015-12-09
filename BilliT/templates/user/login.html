@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        <div class="content">
+            <div class="box sl-box">
+                <h1>Login</h1>
+
+                <form id="contactForm" method="POST" action="{% url 'user_login' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div>
+                        <span><input class="submit" type="submit" value="Login"/></span>
+                    </div>
+                </form>
+                <a href="{% url 'user_signup' %}">Create new account</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

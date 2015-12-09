@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        <div class="content">
+            <div class="box su-box">
+                <h1>Register</h1>
+
+                <form method="POST" action="{% url 'user_signup' %}">
+                    {% csrf_token %}
+                    <table style="width: 50%">
+                        {{ form.as_table }}
+                    </table>
+                    <input class="btn btn-default" type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

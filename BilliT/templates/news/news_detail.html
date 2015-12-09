@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% load markdown_deux_tags %}
+{% block content %}
+    <div class="box b-box">
+        <h1>{{ object.subject }}</h1>
+
+        <div class="markdown">
+            {{ object.content | markdown }}
+        </div>
+        <hr>
+        <p>
+            <span>Keywords: </span>{{ object.keyword }}
+        </p>
+
+        <p><span>Published: </span>{{ object.date|date }}</p>
+
+        <p><span>Today: </span>{{ now|date }}</p>
+    </div>
+{% endblock %}
