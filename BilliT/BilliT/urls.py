@@ -16,7 +16,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from main.views import MainView
+from user.views import UserLogin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', MainView.as_view(), name='home'),
+
+    # User Views
+    url(r'^login/?', UserLogin.as_view(), name='user_login'),
 ]
