@@ -18,8 +18,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-static char *line_read = NULL;
-static char *prompt = "BilliC >";
+static char *line_read;
+static char prompt[1024] = "BilliC >";
 
 void prl_set_prompt(const char *p)
 {
@@ -39,9 +39,8 @@ char *prl_gets(void)
 	}
 
 	line_read = readline(prompt);
-	if (line_read && *line_read) {
+	if (line_read && *line_read)
 		add_history(line_read);
-	}
 
 	return line_read;
 }
