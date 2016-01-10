@@ -15,14 +15,30 @@
 #define USER_H
 
 #include <time.h>
+#include <stdio.h>
 
 struct user {
-	const char *username;
-	const char *name;
-	const char *family;
-	const char *hometown;
-	const char *career;
+	int s_id;
+	char username[255];
+	char name[255];
+	char family[255];
+	char hometown[255];
+	char career[255];
 	time_t birthday;
-}
+};
+
+const struct user *user_new(
+		int s_id,
+		const char *username,
+		const char *name,
+		const char *family,
+		const char *hometown,
+		const char *career,
+		time_t birthday
+);
+
+void user_delete(const struct user *u);
+
+void user_print(const struct user *u, FILE *fp);
 
 #endif
