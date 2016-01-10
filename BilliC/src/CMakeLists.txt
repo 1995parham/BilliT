@@ -6,8 +6,8 @@
 #
 # [] Created By : Parham Alvani (parham.alvani@gmail.com)
 # =======================================
-add_executable(BilliC.out main.c)
-
+add_executable(BilliC.out main.c prl.c)
+target_link_libraries(BilliC.out readline)
 
 # Add personal c flags
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O0 -g -std=gnu11 ")
