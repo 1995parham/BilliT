@@ -11,14 +11,13 @@
 /*
  * Copyright (c) 2016 Parham Alvani.
 */
-CREATE TABLE users (
-	s_id integer,
-	username varchar(255),
-	name varchar(255),
-	family varchar(255),
+CREATE TABLE if NOT EXISTS users (
+	s_id integer primary key,
+	username varchar(255) unique not null,
+	password varchar(255) not null,
+	name varchar(255) not null,
+	family varchar(255) not null,
 	hometown varchar(255),
 	career varchar(255),
-	birthday date,
-	PRIMARY KEY (s_id),
-	UNIQUE (username)
+	birthday date
 );

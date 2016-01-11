@@ -11,3 +11,5 @@
 sudo -u postgres psql -f init.sql
 # User table creation
 psql -U billit -W -d billit -h 127.0.0.1 -f init-user.sql
+# Companies table creation
+psql -U billit -W -d billit -h 127.0.0.1 -f init-companies.sql
