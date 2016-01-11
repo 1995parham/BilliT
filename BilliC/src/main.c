@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	char prompt[1024];
 
 	while (true) {
-		sprintf(prompt, "@BilliC {} [] $ ");
+		sprintf(prompt, "admin @ BilliC {} [] $ ");
 		prl_set_prompt(prompt);
 		command = prl_gets();
 		command_dispatcher(command);

@@ -19,6 +19,7 @@
 
 #include "command.h"
 #include "user.h"
+#include "user_db.h"
 
 /*
  * Commands in this program have the following foramt:
@@ -77,7 +78,12 @@ void create_user_command(void)
 
 	const struct user *u = user_new(s_id, username, name,
 			family, hometown, career, birthday);
+
+	if (user_db_insert(u) == 0)
+		printf("INSERT was successful\n");
+
 	user_print(u, stdout);
+	user_delete(u);
 }
 
 void show_command(char c)
