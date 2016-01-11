@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 {
 	printf("BilliC version 0.2\n");
 	printf("Copyright (C) 2016 Parham Alvani (parham.alvani@gmail.com)\n");
-	printf("TFAT comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n");
+	printf("BilliC comes with ABSOLUTELY NO WARRANTY; for details type `show w'.\n");
 	printf("This is free software, and you are welcome to redistribute it\n");
 	printf("under certain conditions; type `show c' for details.\n");
 	printf("\n");
