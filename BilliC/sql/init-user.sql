@@ -19,6 +19,6 @@ CREATE TABLE users (
 	hometown varchar(255),
 	career varchar(255),
 	birthday date,
-	PRIMARY KEY (s_id)
+	PRIMARY KEY (s_id),
 	UNIQUE (username)
 );
