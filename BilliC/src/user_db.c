@@ -76,7 +76,7 @@ const struct user *user_db_get_with_username(const char *username_i)
 			(const char* []) {username_i},
 			NULL, NULL, 0);
 
-	if (PQresultStatus(res) == PGRES_TUPLES_OK && PQntuples(res) > 0) {
+	if (PQresultStatus(res) == PGRES_TUPLES_OK && PQntuples(res) == 1) {
 		sscanf(PQgetvalue(res, 0, 0), "%d", &s_id);
 
 		strcpy(username, PQgetvalue(res, 0, 1));
