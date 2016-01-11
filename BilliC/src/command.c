@@ -20,6 +20,7 @@
 #include "command.h"
 #include "user.h"
 #include "user_db.h"
+#include "db.h"
 
 /*
  * Commands in this program have the following foramt:
@@ -36,16 +37,38 @@ void quit_command(void)
 	exit(0);
 }
 
+void query_command(void)
+{
+	int buff_size = 1000 * 1000;
+	int index = 0;
+	char command[buff_size];
+	
+	printf("Please enter desired query [ctrl + D to end :)]:\n");
+
+	while (fgets(command + index, buff_size - index, stdin) != NULL)
+		index += strlen(command + index);
+	command[strlen(command) - 1] = 0;
+	
+	pq_run_and_show(command);
+}
+
 void create_user_command(void)
 {
 	int s_id;
+	
 	char username[255];
+	
 	char name[255];
+	
 	char family[255];
+	
 	char hometown[255];
+	
 	char career[255];
+	
 	time_t birthday;
-	struct tm birthday_t;
+	int mm, dd, yy;
+	struct tm birthday_t = {};
 
 	printf("Please enter user.s_id:\n");
 	scanf("%d", &s_id);
@@ -71,9 +94,10 @@ void create_user_command(void)
 	career[strlen(career) - 1] = 0;
 
 	printf("Please enter user.birthday mm dd yyyy:\n");
-	scanf("%d %d %d",&birthday_t.tm_mon, &birthday_t.tm_mday, &birthday_t.tm_year);
-	birthday_t.tm_year -= 1900;
-	birthday_t.tm_mon -= 1;
+	scanf("%d %d %d",&mm, &dd, &yy);
+	birthday_t.tm_year = yy - 1900;
+	birthday_t.tm_mon = mm - 1;
+	birthday_t.tm_mday = dd;
 	birthday = mktime(&birthday_t);
 
 	const struct user *u = user_new(s_id, username, name,
@@ -162,6 +186,9 @@ void show_command(char c)
 
 void command_dispatcher(const char *command)
 {
+	if (!command)
+		quit_command();
+
 	char verb[1024];
 	int len;
 
@@ -173,4 +200,8 @@ void command_dispatcher(const char *command)
 		quit_command();
 	else if (!strcmp(verb, "create_user"))
 		create_user_command();
+	else if (!strcmp(verb, "query"))
+		query_command();
+	else
+		printf("404 Not Found :D\n");
 }

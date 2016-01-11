@@ -17,5 +17,6 @@
 #include <libpq-fe.h>
 
 PGconn *pq_connection(void);
+int pq_run_and_show(const char *command);
 
 #endif
