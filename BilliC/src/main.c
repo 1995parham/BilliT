@@ -17,6 +17,7 @@
 #include <stdlib.h>
 
 #include "command.h"
+#include "auth.h"
 #include "prl.h"
 
 int main(int argc, char *argv[])
@@ -28,11 +29,13 @@ int main(int argc, char *argv[])
 	printf("under certain conditions; type `show c' for details.\n");
 	printf("\n");
 
+	auth_login_procedure();
+
 	const char *command;
 	char prompt[1024];
 
 	while (true) {
-		sprintf(prompt, "admin @ BilliC {} [] $ ");
+		sprintf(prompt, "%s @ BilliC {} [] $ ", auth_get_username());
 		prl_set_prompt(prompt);
 		command = prl_gets();
 		command_dispatcher(command);

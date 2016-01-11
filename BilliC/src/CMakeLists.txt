@@ -7,7 +7,7 @@
 # [] Created By : Parham Alvani (parham.alvani@gmail.com)
 # =======================================
 add_executable(BilliC.out main.c prl.c user.c /
-	command.c db.c user_db.c)
+	command.c db.c user_db.c auth.c)
 
 target_link_libraries(BilliC.out readline)
 
