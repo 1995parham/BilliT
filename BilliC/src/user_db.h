@@ -19,4 +19,6 @@
 
 int user_db_insert(const struct user *u);
 
+const struct user *user_db_get_with_username(const char *username_i);
+
 #endif
