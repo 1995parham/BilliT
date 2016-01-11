@@ -20,6 +20,7 @@
 struct user {
 	int s_id;
 	char username[255];
+	char password[255];
 	char name[255];
 	char family[255];
 	char hometown[255];
@@ -30,6 +31,7 @@ struct user {
 const struct user *user_new(
 		int s_id,
 		const char *username,
+		const char *password,
 		const char *name,
 		const char *family,
 		const char *hometown,

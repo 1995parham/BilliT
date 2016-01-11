@@ -21,6 +21,7 @@
 const struct user *user_new(
 		int s_id,
 		const char *username,
+		const char *password,
 		const char *name,
 		const char *family,
 		const char *hometown,
@@ -33,6 +34,9 @@ const struct user *user_new(
 
 	strncpy(u->username, username, 254);
 	u->username[255] = 0;
+
+	strncpy(u->password, password, 254);
+	u->password[255] = 0;
 
 	strncpy(u->name, name, 254);
 	u->name[255] = 0;

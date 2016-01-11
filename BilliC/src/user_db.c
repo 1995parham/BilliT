@@ -31,10 +31,11 @@ int user_db_insert(const struct user *u)
 	sprintf(s_id_s, "%d", u->s_id);
 
 	res = PQexecParams(pq_connection(),
-			"INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6);",
+			"INSERT INTO users (s_id, username, password, name, family, hometown, career, birthday) \
+			VALUES ($1, $2, $3, $4, $5, $6, $7);",
 			6,
 			NULL,
-			(const char* []) {s_id_s, u->username, u->name, u->family, u->hometown, u->career, birthday_s},
+			(const char* []) {s_id_s, u->username, u->password, u->name, u->family, u->hometown, u->career, birthday_s},
 			NULL, NULL, 0);
 
 	if (PQresultStatus(res) == PGRES_COMMAND_OK) {

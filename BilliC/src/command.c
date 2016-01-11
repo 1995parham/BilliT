@@ -58,6 +58,8 @@ void create_user_command(void)
 	
 	char username[255];
 	
+	char password[255];
+	
 	char name[255];
 	
 	char family[255];
@@ -75,6 +77,10 @@ void create_user_command(void)
 	
 	printf("Please enter user.username:\n");
 	scanf("%s", username);
+	getchar();
+	
+	printf("Please enter user.password:\n");
+	scanf("%s", password);
 	getchar();
 	
 	printf("Please enter user.name:\n");
@@ -100,8 +106,8 @@ void create_user_command(void)
 	birthday_t.tm_mday = dd;
 	birthday = mktime(&birthday_t);
 
-	const struct user *u = user_new(s_id, username, name,
-			family, hometown, career, birthday);
+	const struct user *u = user_new(s_id, username, password,
+			name, family, hometown, career, birthday);
 
 	if (user_db_insert(u) == 0)
 		printf("INSERT was successful\n");
