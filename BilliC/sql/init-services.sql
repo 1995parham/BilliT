@@ -24,7 +24,9 @@ CREATE TABLE IF NOT EXISTS services (
 	dst_town varchar(255) not null,
 	dispatch_time timestamp not null,
 	company integer not null references companies(id) on delete restrict,
-	fi integer not null
+	fi integer not null,
+	total integer not null,
+	sell integer not null default 0
 );
 
 CREATE TABLE IF NOT EXISTS bus_services (
