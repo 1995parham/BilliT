@@ -17,7 +17,7 @@
 
 #include "company.h"
 
-int company_db_insert(const struct user *u);
+int company_db_insert(const struct company *c);
 
 const struct company *company_db_get_with_name(const char *name_i);
 

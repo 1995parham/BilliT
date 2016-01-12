@@ -44,12 +44,12 @@ const struct company *company_new(
 	return c;
 }
 
-void user_delete(const struct company *c)
+void company_delete(const struct company *c)
 {
 	free((void *)c);
 }
 
-void user_print(const struct company *c, FILE *fp)
+void company_print(const struct company *c, FILE *fp)
 {
 	fprintf(fp, "Company %s - %d {\n", c->name, c->manager);
 	

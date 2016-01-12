@@ -24,7 +24,16 @@ int company_db_insert(const struct company *c)
 	PGresult *res;
 
 	char manager_s[1024];
-	sprintf(manager, "%d", c->manager);
+	sprintf(manager_s, "%d", c->manager);
+
+	char driver_s[1024];
+	sprintf(driver_s, "%d", c->driver);
+	
+	char pilot_s[1024];
+	sprintf(pilot_s, "%d", c->pilot);
+	
+	char bus_s[1024];
+	sprintf(bus_s, "%d", c->bus);
 
 	res = PQexecParams(pq_connection(),
 			"INSERT INTO users (manager, name, driver, pilot, bus) \
