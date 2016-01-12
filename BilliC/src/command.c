@@ -18,7 +18,10 @@
 #include <time.h>
 
 #include "command.h"
+#include "auth.h"
+#include "company.h"
 #include "user.h"
+#include "company_db.h"
 #include "user_db.h"
 #include "db.h"
 
@@ -50,6 +53,46 @@ void query_command(void)
 	command[strlen(command) - 1] = 0;
 	
 	pq_run_and_show(command);
+}
+
+void create_company_command(void)
+{
+	int manager;
+
+	char name[255];
+	
+	int driver;
+
+	int pilot;
+
+	int bus;
+	
+	printf("Please enter company.manager:\n");
+	scanf("%d", &manager);
+	getchar();
+	
+	printf("Please enter company.name:\n");
+	fgets(name, 255, stdin);
+	name[strlen(name) - 1] = 0;
+
+	printf("Please enter company.driver:\n");
+	scanf("%d", &driver);
+	
+	printf("Please enter company.pilot:\n");
+	scanf("%d", &pilot);
+
+	printf("Please enter company.bus:\n");
+	scanf("%d", &bus);
+
+	const struct company *c = company_new(0, manager, name,
+			driver, pilot, bus);
+
+	if (!company_db_insert(c))
+		printf("INSERT was successful\n");
+
+	company_print(c, stdout);
+	company_delete(c);
+
 }
 
 void create_user_command(void)
@@ -109,7 +152,7 @@ void create_user_command(void)
 	const struct user *u = user_new(s_id, username, password,
 			name, family, hometown, career, birthday);
 
-	if (user_db_insert(u) == 0)
+	if (!user_db_insert(u))
 		printf("INSERT was successful\n");
 
 	user_print(u, stdout);
@@ -202,12 +245,19 @@ void command_dispatcher(const char *command)
 	if (len < 1)
 		return;
 
-	if (!strcmp(verb, "quit"))
+	if (!strcmp(verb, "quit")) {
 		quit_command();
-	else if (!strcmp(verb, "create_user"))
+	} else if (!strcmp(verb, "create_user")) {
+		if (auth_get_s_id() > 0)
+			return;
 		create_user_command();
-	else if (!strcmp(verb, "query"))
+	} else if (!strcmp(verb, "create_company")) {
+		if (auth_get_s_id() < 0)
+			return;
+		create_company_command();
+	} else if (!strcmp(verb, "query")) {
 		query_command();
-	else
+	} else {
 		printf("404 Not Found :D\n");
+	}
 }
