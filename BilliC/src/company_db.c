@@ -70,7 +70,7 @@ const struct company *company_db_get_with_name(const char *name_i)
 	int bus;
 
 	res = PQexecParams(pq_connection(),
-			"SELECT (id, manager, name, driver, pilot, bus) FROM users \
+			"SELECT id, manager, name, driver, pilot, bus FROM companies \
 			WHERE name = $1",
 			1,
 			NULL,

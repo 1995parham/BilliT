@@ -36,8 +36,9 @@ void auth_login_procedure(void)
 	getchar();
 	printf("Plase enter password:\n");
 	plib_fgetpass(password, 255, stdin);
+	password[strlen(password) - 1] = 0;
 	
-	if (!strcmp(username, "admin") && !strcmp(password, "admin\n")) {
+	if (!strcmp(username, "admin") && !strcmp(password, "admin")) {
 		s_id = 0;
 		printf("Welcome Admin ... you are the god of system\n");
 	} else if (!strcmp(username, "geust")) {
@@ -47,8 +48,13 @@ void auth_login_procedure(void)
 		if (!u) {
 			plib_udie("Authentication failed");
 		} else {
-			s_id = u->s_id;
-			user_print(u, stdin);
+			if (!strcmp(password, u->password)) {
+				s_id = u->s_id;
+				user_print(u, stdout);
+			} else {
+				s_id = -1;
+				strcpy(username, "guest");
+			}
 			user_delete(u);
 		}
 	}
@@ -68,7 +74,7 @@ void auth_login_procedure(void)
 				c_id = 0;
 			} else {
 				c_id = c->id;
-				company_print(c, stdin);
+				company_print(c, stdout);
 			}
 			company_delete(c);
 		}

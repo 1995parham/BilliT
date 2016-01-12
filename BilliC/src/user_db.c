@@ -69,7 +69,7 @@ const struct user *user_db_get_with_username(const char *username_i)
 	struct tm birthday_t = {};
 
 	res = PQexecParams(pq_connection(),
-			"SELECT (s_id, username, password, name, family, hometown, career, birthday) FROM users \
+			"SELECT s_id, username, password, name, family, hometown, career, birthday FROM users \
 			WHERE username = $1",
 			1,
 			NULL,
