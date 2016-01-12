@@ -11,15 +11,15 @@
 /*
  * Copyright (c) 2016 Parham Alvani.
 */
-CREATE SEQUENCE bus_services_id_seq
+CREATE SEQUENCE services_id_seq
 	start with 1
-	increment by 3
+	increment by 1
 	no minvalue
 	no maxvalue
 	cache 1;
 
-CREATE TABLE IF NOT EXISTS bus_services (
-	id integer primary key default nextval('bus_services_id_seq'),
+CREATE TABLE IF NOT EXISTS services (
+	id integer primary key default nextval('services_id_seq'),
 	src_town varchar(255) not null,
 	dst_town varchar(255) not null,
 	dispatch_time timestamp not null,
@@ -27,4 +27,14 @@ CREATE TABLE IF NOT EXISTS bus_services (
 	fi integer not null
 );
 
+CREATE TABLE IF NOT EXISTS bus_services (
+) INHERITS (services);
+
+CREATE TABLE IF NOT EXISTS airplane_services (
+	airplane_id integer
+) INHERITS (services);
+
+CREATE TABLE IF NOT EXISTS train_services (
+	train_id integer
+) INHERITS (services);
 
