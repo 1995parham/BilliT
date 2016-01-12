@@ -21,7 +21,7 @@ CREATE SEQUENCE companies_id_seq
 CREATE TABLE IF NOT EXISTS companies (
 	id integer primary key default nextval('companies_id_seq'),
 	manager integer not null references users(s_id) on delete restrict,
-	name varchar(255) not null,
+	name varchar(255) not null unique,
 	driver integer not null CHECK (driver > 4),
 	pilot integer not null CHECK (pilot > 6),
 	bus integer not null CHECK (bus > 5)
