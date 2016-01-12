@@ -12,7 +12,7 @@
  * Copyright (c) 2016 Parham Alvani.
 */
 CREATE TABLE if NOT EXISTS users (
-	s_id integer primary key,
+	s_id integer primary key CHECK (s_id > 0),
 	username varchar(255) unique not null,
 	password varchar(255) not null,
 	name varchar(255) not null,
