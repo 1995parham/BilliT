@@ -22,6 +22,7 @@
 
 static char username[255];
 static char company[255];
+static int s_id;
 
 void auth_login_procedure(void)
 {
@@ -34,12 +35,16 @@ void auth_login_procedure(void)
 	plib_fgetpass(password, 255, stdin);
 	
 	if (!strcmp(username, "admin") && !strcmp(password, "admin\n")) {
+		s_id = 0;
 		printf("Welcome Admin ... you are the god of system\n");
+	} else if (!strcmp(username, "geust")) {
+		s_id = -1;
 	} else {
 		const struct user *u = user_db_get_with_username(username);
 		if (!u) {
 			plib_udie("Authentication failed");
 		} else {
+			s_id = u->s_id;
 			user_print(u, stdin);
 			user_delete(u);
 		}
@@ -57,3 +62,7 @@ const char *auth_get_company(void)
 	return company;
 }
 
+int auth_get_s_id(void)
+{
+	return s_id;
+}
