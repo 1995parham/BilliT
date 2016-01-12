@@ -18,11 +18,14 @@
 
 #include "auth.h"
 #include "user.h"
+#include "company.h"
 #include "user_db.h"
+#include "company_db.h"
 
 static char username[255];
 static char company[255];
 static int s_id;
+static int c_id;
 
 void auth_login_procedure(void)
 {
@@ -50,6 +53,29 @@ void auth_login_procedure(void)
 		}
 	}
 
+	printf("Please enter company name if applicable:\n");
+	fgets(company, 255, stdin);
+	company[strlen(company) - 1] = 0;
+
+	if (strlen(company)) {
+		const struct company *c = company_db_get_with_name(company);
+		if (!c) {
+			printf("%s not found\n", company);
+			c_id = 0;
+		} else {
+			if (c->manager != s_id) {
+				printf("%s is not yours ...\n", company);
+				c_id = 0;
+			} else {
+				c_id = c->id;
+				company_print(c, stdin);
+			}
+			company_delete(c);
+		}
+	}
+	if (!c_id)
+		strcpy(company, "None");
+
 }
 
 const char *auth_get_username(void)
@@ -65,4 +91,9 @@ const char *auth_get_company(void)
 int auth_get_s_id(void)
 {
 	return s_id;
+}
+
+int auth_get_c_id(void)
+{
+	return c_id;
 }

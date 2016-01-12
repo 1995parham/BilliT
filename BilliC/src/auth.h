@@ -15,8 +15,11 @@
 #define AUTH_H
 
 void auth_login_procedure(void);
+
 const char *auth_get_username(void);
 const char *auth_get_company(void);
+
 int auth_get_s_id(void);
+int auth_get_c_id(void);
 
 #endif

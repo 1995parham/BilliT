@@ -35,7 +35,11 @@ int main(int argc, char *argv[])
 	char prompt[1024];
 
 	while (true) {
-		sprintf(prompt, "%s @ BilliC {} [] $ ", auth_get_username());
+		sprintf(prompt, "%s @ BilliC {%s} [%d, %d] $ ",
+				auth_get_username(),
+				auth_get_company(),
+				auth_get_s_id(),
+				auth_get_c_id());
 		prl_set_prompt(prompt);
 		command = prl_gets();
 		command_dispatcher(command);

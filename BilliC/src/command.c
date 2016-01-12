@@ -57,6 +57,8 @@ void query_command(void)
 
 void create_company_command(void)
 {
+	int id;
+
 	int manager;
 
 	char name[255];
@@ -87,8 +89,9 @@ void create_company_command(void)
 	const struct company *c = company_new(0, manager, name,
 			driver, pilot, bus);
 
-	if (!company_db_insert(c))
-		printf("INSERT was successful\n");
+	id = company_db_insert(c);
+	if (id != -1)
+		printf("INSERT was successful at %d\n", id);
 
 	company_print(c, stdout);
 	company_delete(c);

@@ -36,7 +36,7 @@ int company_db_insert(const struct company *c)
 	sprintf(bus_s, "%d", c->bus);
 
 	res = PQexecParams(pq_connection(),
-			"INSERT INTO users (manager, name, driver, pilot, bus) \
+			"INSERT INTO companies (manager, name, driver, pilot, bus) \
 			VALUES ($1, $2, $3, $4, $5) RETURNING id;",
 			5,
 			NULL,
