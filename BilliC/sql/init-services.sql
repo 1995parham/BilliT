@@ -77,3 +77,26 @@ CREATE OR REPLACE VIEW services AS
 	SELECT id, src_town, dst_town, dispatch_time, company, fi, total, sell, 'airplane' AS vehicle
 	FROM airplane_services;
 
+CREATE OR REPLACE FUNCTION services_insert() RETURNS trigger AS $services_insert$
+	BEGIN
+		-- Check that we have 3 service with equal fi between src_town and dst_town.
+		IF (SELECT COUNT(id) FROM services
+			WHERE fi = NEW.fi AND src_town = NEW.src_town AND dst_town = NEW.dst_town) = 3 THEN
+				IF NEW.fi > 0.9 * (SELECT fi FROM services 
+					WHERE fi = NEW.fi AND src_town = NEW.src_town
+					AND dst_town = NEW.dst_town LIMIT 1) THEN
+						RAISE EXCEPTION 'Invalid service condition :(';
+				END IF;
+		END IF;
+		RETURN NEW;
+	END;
+$services_insert$ LANGUAGE plpgsql;
+
+CREATE TRIGGER services_insert BEFORE INSERT ON bus_services
+	FOR EACH ROW EXECUTE PROCEDURE services_insert();
+
+CREATE TRIGGER services_insert BEFORE INSERT ON airplane_services
+	FOR EACH ROW EXECUTE PROCEDURE services_insert();
+
+CREATE TRIGGER services_insert BEFORE INSERT ON train_services
+	FOR EACH ROW EXECUTE PROCEDURE services_insert();
