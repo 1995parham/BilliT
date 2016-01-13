@@ -78,7 +78,7 @@ int train_service_db_insert(const struct train_service *s)
 	sprintf(train_id_s, "%d", s->train_id);
 
 	res = PQexecParams(pq_connection(),
-			"INSERT INTO train_services (src_town, dst_town, dispatch_time, company, fi, total) \
+			"INSERT INTO train_services (src_town, dst_town, dispatch_time, company, fi, total, train_id) \
 			VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;",
 			6,
 			NULL,
@@ -118,7 +118,7 @@ int airplane_service_db_insert(const struct airplane_service *s)
 	sprintf(airplane_id_s, "%d", s->airplane_id);
 
 	res = PQexecParams(pq_connection(),
-			"INSERT INTO bus_services (src_town, dst_town, dispatch_time, company, fi, total) \
+			"INSERT INTO bus_services (src_town, dst_town, dispatch_time, company, fi, total, airplane_id) \
 			VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;",
 			6,
 			NULL,
