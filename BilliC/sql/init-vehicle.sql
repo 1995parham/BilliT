@@ -29,12 +29,12 @@ CREATE TABLE IF NOT EXISTS airplanes (
 	id integer primary key default nextval('airplanes_id_seq'),
 	model integer not null,
 	vendor varchar(255) not null,
-	company integer not null refrences companies(id)
+	company integer not null references companies(id)
 );
 
 CREATE TABLE IF NOT EXISTS trains (
 	id integer primary key default nextval('trains_id_seq'),
 	model integer not null,
 	vendor varchar(255) not null,
-	company integer not null refrences companies(id)
+	company integer not null references companies(id)
 );

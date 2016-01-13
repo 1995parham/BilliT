@@ -34,37 +34,37 @@ CREATE SEQUENCE train_tickets_id_seq
 	cache 1;
 
 CREATE TABLE IF NOT EXISTS bus_tickets (
-	id integer primary key default nextval('bus_ticket_id_seq'),
+	id integer primary key default nextval('bus_tickets_id_seq'),
 	buyer integer not null references users(s_id) on delete cascade,
 	count integer not null,
-	service integer not null refrences bus_services(id) on delete cascade,
+	service integer not null references bus_services(id) on delete cascade,
 	price integer not null
 );
 
 CREATE TABLE IF NOT EXISTS airplane_tickets (
-	id integer primary key default nextval('airplane_ticket_id_seq'),
+	id integer primary key default nextval('airplane_tickets_id_seq'),
 	buyer integer not null references users(s_id) on delete cascade,
 	count integer not null,
-	service integer not null refrences airplane_services(id) on delete cascade,
+	service integer not null references airplane_services(id) on delete cascade,
 	price integer not null
 );
 
 CREATE TABLE IF NOT EXISTS train_tickets (
-	id integer primary key default nextval('train_ticket_id_seq'),
+	id integer primary key default nextval('train_tickets_id_seq'),
 	buyer integer not null references users(s_id) on delete cascade,
 	count integer not null,
-	service integer not null refrences train_services(id) on delete cascade,
+	service integer not null references train_services(id) on delete cascade,
 	price integer not null
 );
 
 CREATE OR REPLACE VIEW tickets AS
-	SELECT id, buyer, count, service, price 'bus' AS vehicle
+	SELECT id, buyer, count, service, price, 'bus' AS vehicle
 	FROM bus_tickets
 	UNION
-	SELECT id, buyer, count, service, price 'airplane' AS vehicle
+	SELECT id, buyer, count, service, price, 'airplane' AS vehicle
 	FROM airplane_tickets
 	UNION
-	SELECT id, buyer, count, service, price 'train' AS vehicle
+	SELECT id, buyer, count, service, price, 'train' AS vehicle
 	FROM train_tickets;
 
 CREATE OR REPLACE FUNCTION bus_tickets_insert() RETURNS trigger AS $bus_tickets_insert$
@@ -81,7 +81,7 @@ CREATE OR REPLACE FUNCTION bus_tickets_insert() RETURNS trigger AS $bus_tickets_
 	END;
 $bus_tickets_insert$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE TRIGGER bus_tickets_insert BEFORE INSERT ON bus_tickets
+CREATE TRIGGER bus_tickets_insert BEFORE INSERT ON bus_tickets
 	FOR EACH ROW EXECUTE PROCEDURE bus_tickets_insert();
 
 CREATE OR REPLACE FUNCTION train_tickets_insert() RETURNS trigger AS $train_tickets_insert$
@@ -98,7 +98,7 @@ CREATE OR REPLACE FUNCTION train_tickets_insert() RETURNS trigger AS $train_tick
 	END;
 $train_tickets_insert$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE TRIGGER train_tickets_insert BEFORE INSERT ON train_tickets
+CREATE TRIGGER train_tickets_insert BEFORE INSERT ON train_tickets
 	FOR EACH ROW EXECUTE PROCEDURE train_tickets_insert();
 
 CREATE OR REPLACE FUNCTION airplane_tickets_insert() RETURNS trigger AS $airplane_tickets_insert$
@@ -115,5 +115,5 @@ CREATE OR REPLACE FUNCTION airplane_tickets_insert() RETURNS trigger AS $airplan
 	END;
 $airplane_tickets_insert$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE TRIGGER airplane_tickets_insert BEFORE INSERT ON airplane_tickets
+CREATE TRIGGER airplane_tickets_insert BEFORE INSERT ON airplane_tickets
 	FOR EACH ROW EXECUTE PROCEDURE airplane_tickets_insert();
