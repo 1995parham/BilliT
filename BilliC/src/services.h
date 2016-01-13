@@ -82,7 +82,7 @@ void service_train_print(const struct train_service *s, FILE *fp);
 
 void service_airplane_print(const struct airplane_service *s, FILE *fp);
 
-void serivce_bus_delete(const struct bus_service *s);
+void service_bus_delete(const struct bus_service *s);
 
 void service_train_delete(const struct train_service *s);
 

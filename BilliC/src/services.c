@@ -165,7 +165,7 @@ void service_airplane_print(const struct airplane_service *s, FILE *fp)
 	fprintf(fp, "}\n");
 }
 
-void serivce_bus_delete(const struct bus_service *s)
+void service_bus_delete(const struct bus_service *s)
 {
 	free((void *)s);
 }
