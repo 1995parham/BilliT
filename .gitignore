@@ -143,3 +143,6 @@ install_manifest.txt
 
 # Debug files
 *.dSYM/
+
+## BilliT specific git ignore :)
+!BilliC/sql/Makefile
