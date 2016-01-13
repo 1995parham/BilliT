@@ -16,4 +16,4 @@ psql -U billit -W -d billit -h 127.0.0.1 -f init-companies.sql
 # Services table creation
 psql -U billit -W -d billit -h 127.0.0.1 -f init-services.sql
 # Fill tables with some data
-sudo -u postgres psql -d billit -f fill.sql
+sudo -u postgres psql -d billit -f build.sql

@@ -13,6 +13,8 @@
 */
 
 
-COPY users FROM 'data/users.txt';
+\copy users FROM 'data/users.txt';
 
-COPY companies FROM 'data/companies.txt';
+\copy companies FROM 'data/companies.txt';
+
+\copy bus_services (src_town, dst_town, dispatch_time, company, fi, total) FROM 'data/bus_services.txt';
