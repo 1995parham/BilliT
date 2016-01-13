@@ -19,8 +19,10 @@
 
 #include "command.h"
 #include "auth.h"
+#include "services.h"
 #include "company.h"
 #include "user.h"
+#include "services_db.h"
 #include "company_db.h"
 #include "user_db.h"
 #include "db.h"
@@ -54,6 +56,68 @@ void query_command(void)
 	
 	pq_run_and_show(command);
 }
+
+void create_bus_service_command(void)
+{
+	int id;
+
+	char src_town[255];
+
+	char dst_town[255];
+	
+	time_t dispatch_time;
+	int mm, dd, yy;
+	int h, m, s;
+	struct tm dispatch_time_t = {};
+
+	int company;
+
+	int fi;
+
+	int total;
+
+	int sell;
+	
+	printf("Please enter service.src_town:\n");
+	fgets(src_town, 255, stdin);
+	src_town[strlen(src_town) - 1] = 0;
+
+	printf("Please enter service.dst_tonw:\n");
+	fgets(dst_town, 255, stdin);
+	dst_town[strlen(src_town) - 1] = 0;
+
+	printf("Please enter service.dispatch_time: mm dd yyyy hh mm ss\n");
+	scanf("%d %d %d %d %d %d",&mm, &dd, &yy, &h, &m, &s);
+	dispatch_time_t.tm_year = yy - 1900;
+	dispatch_time_t.tm_mon = mm - 1;
+	dispatch_time_t.tm_mday = dd;
+	dispatch_time_t.tm_sec = s;
+	dispatch_time_t.tm_min = m;
+	dispatch_time_t.tm_hour = h;
+	dispatch_time = mktime(&dispatch_time_t);
+
+	printf("Please enter service.company:\n");
+	scanf("%d", &company);
+
+	printf("Please enter service.fi:\n");
+	scanf("%d", &fi);
+
+	printf("Please enter service.total:\n");
+	scanf("%d", &total);
+
+	sell = 0;
+
+	const struct bus_service *bs = service_bus_new(0, src_town, dst_town, dispatch_time,
+			company, fi, total, sell);
+
+	id = bus_service_db_insert(bs);
+	if (id != -1)
+		printf("INSERT was successful at %d\n", id);
+
+	service_bus_print(bs, stdout);
+	service_bus_delete(bs);
+}
+
 
 void create_company_command(void)
 {
@@ -260,6 +324,15 @@ void command_dispatcher(const char *command)
 		create_company_command();
 	} else if (!strcmp(verb, "query")) {
 		query_command();
+	} else if (!strcmp(verb, "create_bus_service")) {
+		if (auth_get_s_id() > 0 && auth_get_c_id() > 0)
+			create_bus_service_command();
+	} else if (!strcmp(verb, "create_train_service")) {
+		if (auth_get_s_id() > 0 && auth_get_c_id() > 0)
+			create_train_service_command();
+	} else if (!strcmp(verb, "create_airplane_service")) {
+		if (auth_get_s_id() > 0 && auth_get_c_id() > 0)
+			create_airplane_service_command();
 	} else {
 		printf("404 Not Found :D\n");
 	}
