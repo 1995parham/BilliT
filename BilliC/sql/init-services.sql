@@ -68,12 +68,12 @@ CREATE TABLE IF NOT EXISTS train_services (
 );
 
 CREATE OR REPLACE VIEW services AS
-	SELECT id, src_town, dst_town, dispatch_time, company, fi, total, sell, 'bus' AS vechicle
+	SELECT id, src_town, dst_town, dispatch_time, company, fi, total, sell, 'bus' AS vehicle
 	FROM bus_services
 	UNION
-	SELECT id, src_town, dst_town, dispatch_time, company, fi, total, sell, 'train' AS vechicle
+	SELECT id, src_town, dst_town, dispatch_time, company, fi, total, sell, 'train' AS vehicle
 	FROM train_services
 	UNION
-	SELECT id, src_town, dst_town, dispatch_time, company, fi, total, sell, 'airplane' AS vechicle
+	SELECT id, src_town, dst_town, dispatch_time, company, fi, total, sell, 'airplane' AS vehicle
 	FROM airplane_services;
 
