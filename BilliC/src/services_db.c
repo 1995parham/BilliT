@@ -40,8 +40,8 @@ int bus_service_db_insert(const struct bus_service *s)
 
 	res = PQexecParams(pq_connection(),
 			"INSERT INTO bus_services (src_town, dst_town, dispatch_time, company, fi, total) \
-			VALUES ($1, $2, $3, $4, $5) RETURNING id;",
-			5,
+			VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;",
+			6,
 			NULL,
 			(const char* []) {s->s.src_town, s->s.dst_town, dispatch_time_s, company_s, fi_s, total_s},
 			NULL, NULL, 0);
@@ -51,7 +51,7 @@ int bus_service_db_insert(const struct bus_service *s)
 		sscanf(PQgetvalue(res, 0, 0), "%d", &id);
 		return id;
 	} else {
-		plib_ulog("insert query error: %s", PQresultErrorMessage(res));
+		plib_udie("insert query error: %s", PQresultErrorMessage(res));
 		return -1;
 	}
 }
@@ -79,8 +79,8 @@ int train_service_db_insert(const struct train_service *s)
 
 	res = PQexecParams(pq_connection(),
 			"INSERT INTO train_services (src_town, dst_town, dispatch_time, company, fi, total, train_id) \
-			VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;",
-			6,
+			VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;",
+			7,
 			NULL,
 			(const char* []) {s->s.src_town, s->s.dst_town, dispatch_time_s, company_s, fi_s, total_s, train_id_s},
 			NULL, NULL, 0);
@@ -118,9 +118,9 @@ int airplane_service_db_insert(const struct airplane_service *s)
 	sprintf(airplane_id_s, "%d", s->airplane_id);
 
 	res = PQexecParams(pq_connection(),
-			"INSERT INTO bus_services (src_town, dst_town, dispatch_time, company, fi, total, airplane_id) \
-			VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;",
-			6,
+			"INSERT INTO airplane_services (src_town, dst_town, dispatch_time, company, fi, total, airplane_id) \
+			VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;",
+			7,
 			NULL,
 			(const char* []) {s->s.src_town, s->s.dst_town, dispatch_time_s, company_s, fi_s, total_s, airplane_id_s},
 			NULL, NULL, 0);
