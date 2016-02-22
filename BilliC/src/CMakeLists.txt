@@ -14,14 +14,14 @@ add_executable(BilliC.out main.c prl.c user.c /
 
 target_link_libraries(BilliC.out readline)
 
-include_directories ("${BilliC_SOURCE_DIR}/PLib/src")
-target_link_libraries (BilliC.out PLib)
+include_directories("${BilliC_SOURCE_DIR}/PLib/src")
+target_link_libraries(BilliC.out PLib)
 
-find_package (PkgConfig)
-pkg_check_modules (LIBPQ REQUIRED libpq)
-include_directories (${LIBPQ_INCLUDE_DIRS})
-link_directories (${LIBPQ_LIBRARY_DIRS})
-target_link_libraries (BilliC.out ${LIBPQ_LIBRARIES})
+find_package(PkgConfig)
+pkg_check_modules(LIBPQ REQUIRED libpq)
+include_directories(${LIBPQ_INCLUDE_DIRS})
+link_directories(${LIBPQ_LIBRARY_DIRS})
+target_link_libraries(BilliC.out ${LIBPQ_LIBRARIES})
 
 # Add personal c flags
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O0 -g -std=gnu11 ")
