@@ -1,3 +1,3 @@
-[submodule "BilliC/PLib"]
-	path = BilliC/PLib
+[submodule "PLib"]
+	path = PLib
 	url = https://github.com/1995parham/PLib

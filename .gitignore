@@ -86,4 +86,4 @@ install_manifest.txt
 *.dSYM/
 
 ## BilliT specific git ignore :)
-!BilliC/sql/Makefile
+!sql/Makefile
