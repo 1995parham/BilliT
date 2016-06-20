@@ -7,5 +7,10 @@ BilliT in Persian means ticket but you can read it in English as Bill it ....
 Bill it (Urban Dictionary):  
 'to bill' means to smoke, more specifically weed. Not really a common word but used in quite a lot of songs.  
 :))
+## Installation
+```sh
+mkdir build; cd build
+cmake ..
+```
 ## Entity Relation Diagram
 ![BilliT ERD](http://www.googledrive.com/host/0B33KzMHyLoH2eVNHWFJZdmthOVk/BilliT-ERD.png)
