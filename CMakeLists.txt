@@ -7,7 +7,7 @@
 # [] Created By : Parham Alvani (parham.alvani@gmail.com)
 # =======================================
 cmake_minimum_required(VERSION 2.6)
-project(BilliC)
+project(BilliT)
 
 # Set porject imformation
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib")
@@ -18,8 +18,8 @@ add_subdirectory(PLib)
 add_subdirectory(src)
 
 # The version number
-set(BilliC_MAJOR_VERSION 1)
-set(BilliC_MINOR_VERSION 0)
+set(BilliT_MAJOR_VERSION 1)
+set(BilliT_MINOR_VERSION 0)
 
 # Add personal c flags
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O0 -g -std=gnu11 ")
