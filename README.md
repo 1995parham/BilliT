@@ -7,7 +7,7 @@ Amirkabir University of Technology.
 BilliT in Persian means ticket but you can read it in English as Bill it ....  
 Bill it (Urban Dictionary):  
 'to bill' means to smoke, more specifically weed. Not really a common word but used in quite a lot of songs.  
-:simle: :weed:
+:smile: :herb:
 
 ## Installation
 ```sh
